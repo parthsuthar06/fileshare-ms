@@ -1,9 +1,13 @@
+//TO_DO solve import statement load direction
 'use strict';
+/**
+ * app imports
+ */
 import express from 'express';
 import cors from 'cors';
 import { router } from './controller';
 import Queue from './models/queue';
-import Database from './models/database';
+import DB from './models/db';
 
 const app = express();
 /**
@@ -16,16 +20,9 @@ queue.qc.on('error', (err) => {
 /**
  * configure database
  */
-const sequelize = new Database({
-    host: 'localhost',
-    port: 3306,
-    username: 'root',
-    password: 'admin',
-    database: 'file_upload',
-    dialect: 'mysql'
-})
+const sequelize = new DB(global.config.db);
 
-sequelize.connection.authenticate()
+sequelize.dbInstance.authenticate()
     .then(_ => console.log("Connection has been established successfully!"))
     .catch(err => {
         console.log("Error Occured while connecting to database", err);
@@ -45,7 +42,6 @@ app.use(router);
 /**
  * server setup
  */
-const PORT = 4000;
-app.listen(PORT, () => {
-    console.log(`Server running on ${PORT}`);
+app.listen(global.config.port, () => {
+    console.log(`Server running on ${global.config.port}`);
 });

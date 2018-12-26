@@ -2,6 +2,9 @@
 import dotenv from 'dotenv';
 import AWS from 'aws-sdk';
 import fs from 'fs';
+
+const fsp = fs.promises;
+
 //load env var
 dotenv.config();
 
@@ -31,12 +34,15 @@ export default class AWSS3 {
     upload(params) {
         return this.s3Client.upload(params).promise()
     }
-
-    getParams({ path, name, type }) {
+    /**
+     * self explanatory
+     */
+    async getParams({ path, name, type }) {
+        const body =  await fsp.readFile(path);
         return {
             Bucket: process.env.S3_BUCKET_NAME,
             Key: name,
-            Body: fs.readFileSync(path), //TO_DO create read stream 
+            Body: body,
             ACL: 'public-read',
             ContentType: type
         }
@@ -49,6 +55,6 @@ export default class AWSS3 {
      * @param params 
      */
     delete(params) {
-        return this.s3Client.delete(params).promise()
+        return this.s3Client.deleteObject(params).promise()
     }
 }
