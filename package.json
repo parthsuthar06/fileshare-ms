@@ -1,0 +1,37 @@
+{
+  "name": "fileshare",
+  "version": "1.0.0",
+  "description": "Upload files such as images to aws s3 bucket",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon --experimental-modules app.mjs",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "file-share"
+  ],
+  "author": "Parth Suthar",
+  "license": "MIT",
+  "dependencies": {
+    "aws-sdk": "^2.381.0",
+    "cors": "^2.8.5",
+    "dotenv": "^6.2.0",
+    "express": "^4.16.4",
+    "formidable": "^1.2.1",
+    "kue": "^0.11.6",
+    "multiparty": "^4.2.1",
+    "mysql2": "^1.6.4",
+    "request": "^2.88.0",
+    "sequelize": "^4.42.0"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.4",
+    "@types/express": "^4.16.0",
+    "@types/formidable": "^1.0.31",
+    "@types/kue": "^0.11.10",
+    "@types/request": "^2.48.1",
+    "@types/sequelize": "^4.27.33",
+    "nodemon": "^1.18.9",
+    "typescript": "^3.2.2"
+  }
+}
