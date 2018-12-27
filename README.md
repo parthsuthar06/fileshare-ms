@@ -26,7 +26,9 @@ $ npm run serve
 first please create ***.env*** at root folder structure with this variable:
 
 ACCESS_KEY_ID=***YOUR ACCESS KEY ID***
+
 SECRET_ACCESS_KEY=***YOUR ACCESS KEY***
+
 S3_BUCKET_NAME=***S3 BUCKET NAME***
   
 Check ***appconfig/config*** (for db connection,databse name and app port ***4000***)
