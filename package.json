@@ -4,7 +4,8 @@
   "description": "Upload files such as images to aws s3 bucket",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon --experimental-modules app.mjs",
+    "start": "node --experimental-modules app.mjs",
+    "dev": "nodemon --experimental-modules app.mjs",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -19,7 +20,6 @@
     "express": "^4.16.4",
     "formidable": "^1.2.1",
     "kue": "^0.11.6",
-    "multiparty": "^4.2.1",
     "mysql2": "^1.6.4",
     "request": "^2.88.0",
     "sequelize": "^4.42.0"
@@ -31,7 +31,6 @@
     "@types/kue": "^0.11.10",
     "@types/request": "^2.48.1",
     "@types/sequelize": "^4.27.33",
-    "nodemon": "^1.18.9",
-    "typescript": "^3.2.2"
+    "nodemon": "^1.18.9"
   }
 }
