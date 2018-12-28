@@ -17,12 +17,18 @@ const sequelize = new DB(global.config.db);
 
 const UploadModel = sequelize.dbInstance.define('upload', {
     id: {
-        type: Sequelize.STRING,
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV1,
         primaryKey: true
     },
     bucket: Sequelize.STRING,
-    name: Sequelize.STRING,
-    url: Sequelize.STRING
+    name:{
+        type: Sequelize.STRING,
+        allowNull: false,
+        unique: true,
+    },
+    url: Sequelize.STRING,
+    etag: Sequelize.STRING,
 });
 /**
  * create Table if not exist
@@ -34,20 +40,17 @@ export default class Upload {
      * if not exist then only create
      */
     create(data) {
-        if (data.id) {
-            data.id = unquoted(data.id);
-        }
-        return this.get(data.id).then(d => {
+        return this.get("name",data.name).then(d => {
             if (!d) {
                 return UploadModel.create(data)
                     .then(this.getJSON);
             }
-            throw new Error('Data Already exist');
+            throw new Error('Duplicate File Name Exist!');
         })
     }
 
-    get(id) {
-        return UploadModel.findOne({ where: { id } })
+    get(key,val) {
+        return UploadModel.findOne({ where: { [key]:val } })
             .then(this.getJSON)
     }
 

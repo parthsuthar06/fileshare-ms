@@ -19,7 +19,7 @@ export function addJobAndProcess(name, data) {
                 bucket: result.Bucket,
                 name: result.Key,
                 url: result.Location,
-                id: result.ETag
+                etag: result.ETag
             }
             const d = await model.create(uploadParams)
             console.log("Job SQL CREATE database", d);

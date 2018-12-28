@@ -20,16 +20,17 @@ router.get('/all', async (req, res) => {
 })
 /**
  * returns {
-        id : String, //have Etag of aws s3
+        id : String,
         bucket : String,
         name : String,
         url : String,
+        etag : String
     }
  */
 router.get('/:id', async (req, res) => {
     const id = req.params.id;
     const model = new Upload();
-    const result = await model.get(id);
+    const result = await model.get("id",id);
     res.status(200).json({
         responseCode: 0,
         data: result
@@ -60,7 +61,7 @@ router.delete('/:id', async (req, res) => {
         data: 'Added Into Queue For Delete'
     })
     const model = new Upload();
-    const data = await model.get(id);
+    const data = await model.get("id",id);
     deleteJobAndProcess(FILEDELETE, data);
 })
 
