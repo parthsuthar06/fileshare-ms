@@ -19,12 +19,12 @@ export function addJobAndProcess(name, data) {
                 bucket: result.Bucket,
                 name: result.Key,
                 url: result.Location,
-                etag: result.ETag
+                id: result.ETag
             }
             const d = await model.create(uploadParams)
             console.log("Job SQL CREATE database", d);
         } catch (e) {
-            console.log(`Job ${name} Completion ERROR`, e);
+            console.log(`Job ${name} SQL ERROR`, e);
         }
     })
     //process the job
@@ -72,4 +72,9 @@ export function deleteJobAndProcess(name, data) {
             console.log(`Queue ${name} Process ERROR`, e);
         }
     });
+}
+
+//remove inner double quote
+export function unquoted(str){
+    return str.replace (/(^")|("$)/g, '')
 }

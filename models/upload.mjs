@@ -10,20 +10,19 @@ global.config = config;
  */
 import Sequelize from 'sequelize';
 import DB from './db';
+import { unquoted } from '../helpers/queueJobAndProcess'
 
 const DataTypes = Sequelize.DataTypes;
 const sequelize = new DB(global.config.db);
 
 const UploadModel = sequelize.dbInstance.define('upload', {
     id: {
-        type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV1,
+        type: Sequelize.STRING,
         primaryKey: true
     },
     bucket: Sequelize.STRING,
     name: Sequelize.STRING,
-    url: Sequelize.STRING,
-    etag: Sequelize.STRING,
+    url: Sequelize.STRING
 });
 /**
  * create Table if not exist
@@ -31,9 +30,20 @@ const UploadModel = sequelize.dbInstance.define('upload', {
 UploadModel.sync();
 
 export default class Upload {
+    /**
+     * if not exist then only create
+     */
     create(data) {
-        return UploadModel.create(data)
-            .then(this.getJSON);
+        if (data.id) {
+            data.id = unquoted(data.id);
+        }
+        return this.get(data.id).then(d => {
+            if (!d) {
+                return UploadModel.create(data)
+                    .then(this.getJSON);
+            }
+            throw new Error('Data Already exist');
+        })
     }
 
     get(id) {
@@ -50,6 +60,8 @@ export default class Upload {
     }
 
     getJSON(model) {
-        return model.get({ plain: true })
+        if (model)
+            return model.get({ plain: true })
+        return null
     }
 }

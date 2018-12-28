@@ -24,7 +24,7 @@ export default class AWSS3 {
     }
     /**
      * returns {
-        ETag: 'String',
+        ETag: "String",
         Location: upload file url,
         Key: filename,
         Bucket: Bucket name 

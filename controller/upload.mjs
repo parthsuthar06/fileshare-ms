@@ -20,11 +20,10 @@ router.get('/all', async (req, res) => {
 })
 /**
  * returns {
-        id : String,
+        id : String, //have Etag of aws s3
         bucket : String,
         name : String,
         url : String,
-        etag : String,
     }
  */
 router.get('/:id', async (req, res) => {
