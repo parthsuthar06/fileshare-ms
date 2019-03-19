@@ -1,5 +1,5 @@
 # fileshare-ms
-Fileshare microservice is for file upload based on MSSQL database, s3 bucket storage, Nodejs
+Fileshare microservice is for file upload based on MSSQL database, s3 bucket storage, Nodejs, Kue Implementation (Redis).
 
 ## Prerequisite
   - MSSQL server
